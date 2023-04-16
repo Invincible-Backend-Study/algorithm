@@ -1,6 +1,3 @@
-/*
-    단순 스택 구현
-*/
 import java.io.*;
 import java.util.*;
 
