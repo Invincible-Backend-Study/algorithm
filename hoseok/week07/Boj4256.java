@@ -17,6 +17,7 @@ class Main {
             inorders = new int[n];
             StringTokenizer preorderTokens = new StringTokenizer(br.readLine());
             StringTokenizer inorderTokens = new StringTokenizer(br.readLine());
+            
             for (int i = 0; i < n; i++) {
                 preorders[i] = Integer.parseInt(preorderTokens.nextToken());
                 inorders[i] = Integer.parseInt(inorderTokens.nextToken());
