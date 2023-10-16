@@ -16,90 +16,67 @@ class Main {
     }
 
     private static char[][] map;
-    private static int[][] numberMap;
-    private static Queue<Node> que = new LinkedList<>();
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        map = new char[8][8];
-        numberMap = new int[8][8];
-
-        for (int i = 0; i < 8; i++) {
+        map = new char[10][10];
+        Arrays.fill(map[0], '.');
+        for (int i = 1; i <= 8; i++) {
             String line = br.readLine();
-            for (int j = 0; j < 8; j++) {
-                map[i][j] = line.charAt(j);
+            for (int j = 1; j <= 8; j++) {
+                map[i][j] = line.charAt(j - 1);
             }
         }
 
-        int result = 0;
-        numberMap[7][0] = 1;
-        while (true) {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (numberMap[i][j] == 1) {
-                        que.offer(new Node(i, j));
-                    }
-                }
-            }
-            bfs();
-            moveWall();
+        int result = bfs();
 
-            boolean canMoveMore = false;
-            for (int i = 0; i < 8; i++) {
-                if (canMoveMore) {
-                    break;
-                }
-                for (int j = 0; j < 8; j++) {
-                    if (numberMap[i][j] == 1) {
-                        canMoveMore = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!canMoveMore) {
-                break;
-            }
-            if (numberMap[0][7] == 1) {
-                result = 1;
-                break;
-            }
-        }
         bw.write(result + "");
         bw.flush();
         bw.close();
+
     }
 
-    private static void bfs() {
+    private static int bfs() {
+        Queue<Node> que = new LinkedList<>();
+        boolean[][] visited;
+        que.offer(new Node(8, 1));
+        
         while (!que.isEmpty()) {
-            Node curNode = que.poll();
-            for (int j = 0; j < 9; j++) {
-                int nextR = curNode.r + rows[j];
-                int nextC = curNode.c + cols[j];
 
-                if (nextR < 0 || nextR >= 8 || nextC < 0 || nextC >= 8) {
+            visited = new boolean[9][9];
+            int size = que.size();
+            for (int i = 0; i < size; i++) {
+                Node curNode = que.poll();
+
+                if (map[curNode.r][curNode.c] == '#') {
                     continue;
                 }
-                if (map[nextR][nextC] == '.') {
-                    numberMap[nextR][nextC] = 1;
+                if (curNode.r == 1 && curNode.c == 8) {
+                    return 1;
+                }
+                for (int j = 0; j < 9; j++) {
+                    int nextR = curNode.r + rows[j];
+                    int nextC = curNode.c + cols[j];
+
+                    if (nextR < 1 || nextR >= 9 || nextC < 1 || nextC >= 9) {
+                        continue;
+                    }
+                    if (map[nextR][nextC] == '.' && !visited[nextR][nextC]) {
+                        visited[nextR][nextC] = true;
+                        que.offer(new Node(nextR, nextC));
+                    }
                 }
             }
+            moveWall();
         }
+        return 0;
     }
 
     public static void moveWall() {
-        for (int i = 7; i >= 0; i--) {
-            for (int j = 0; j < 8; j++) {
-                if (map[i][j] == '#') {
-                    if (i != 7) {
-                        map[i + 1][j] = '#';
-                        map[i][j] = '.';
-                        numberMap[i + 1][j] = 0;
-                    } else {
-                        map[i][j] = '.';
-                    }
-                }
+        for (int i = 9; i >= 1; i--) {
+            for (int j = 1; j <= 8; j++) {
+                map[i][j] = map[i - 1][j];
             }
         }
     }
