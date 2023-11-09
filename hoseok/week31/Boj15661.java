@@ -33,22 +33,22 @@ class Main {
             eachScoreSum[i] = sum;
         }
 
-        combinations(0, 0);
+        combinations(0, n);
 
         bw.write(min + "");
         bw.flush();
         bw.close();
     }
 
-    public static void combinations(int index, int count) {
-        if (index == n) {
+    public static void combinations(int index, int r) {
+        if (r >= 0) {
             updateMinDifference();
-            return;
         }
-        visited[index] = true;
-        combinations(index + 1, count + 1);
-        visited[index] = false;
-        combinations(index + 1, count);
+        for (int i = index; i < n; i++) {
+            visited[i] = true;
+            combinations(i + 1, r - 1);
+            visited[i] = false;
+        }
     }
 
     public static void updateMinDifference() {
