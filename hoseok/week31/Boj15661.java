@@ -33,7 +33,7 @@ class Main {
             eachScoreSum[i] = sum;
         }
 
-        combinations(0, n);
+        combinations(0, n / 2);
 
         bw.write(min + "");
         bw.flush();
