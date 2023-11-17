@@ -31,7 +31,6 @@ class Main {
         } else {
             op = line.charAt(index - 1);
         }
-        
         if (index + 2 < n) {
             int curBracketNumber = calculate(line.charAt(index) - '0', line.charAt(index + 1), line.charAt(index + 2) - '0');
             dfs(index + 4, calculate(result, op, curBracketNumber));
