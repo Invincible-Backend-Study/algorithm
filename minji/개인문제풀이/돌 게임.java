@@ -12,6 +12,12 @@ public class Main {
         output();
     }
 
+
+    /*
+        if(n%2 == 1) System.out.println("SK");
+        else System.out.println("CY");
+        https://www.acmicpc.net/source/68991682
+    */
     private static String solution() {
         int pick3StoneTurn = N / 3;
         int pick1StoneTurn = N % 3;
