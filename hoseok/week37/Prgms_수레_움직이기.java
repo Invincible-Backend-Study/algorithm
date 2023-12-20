@@ -93,26 +93,6 @@ class Solution {
         }
         return answer;
     }
-    
-    private boolean isPossible(Node cntRed, Node red,
-                               Node cntBlue, Node blue){
-        // 기본 탐색 규칙
-        if(red.r < 0 || red.c < 0 || red.r >= map.length || red.c >= map[0].length
-                || blue.r < 0 || blue.c < 0 || blue.r >= map.length || blue.c >= map[0].length
-                || map[red.r][red.c] == 5 || map[blue.r][blue.c] == 5) return false;
-
-        // 두 수레 스위치 체크
-        if((cntRed.r == blue.r && cntRed.c == blue.c)
-                && (cntBlue.r == red.r && cntBlue.c == red.c)) return false;
-
-        // 도착지점에 도착하지도 않고 중복방문이라면 false
-        if((!redEnd && visited[red.r][red.c][0])
-                || (!blueEnd && visited[blue.r][blue.c][1])) return false;
-
-        // 두 수레가 동일한 지점에 위치시
-        if(red.r == blue.r && red.c == blue.c) return false;
-        return true;
-    }
 
     public boolean isInvalid(Node node) {
         return node.r < 0 || node.r >= map.length || node.c < 0 || node.c >= map[0].length;
