@@ -76,6 +76,7 @@ class Main {
             return;
         }
         visited[curNode.r][curNode.c] = true;
+        // 물건이 있을 경우에만 방향 스위치
         if (map[curNode.r][curNode.c] >= 1 && map[curNode.r][curNode.c] <= 4) {
             dir = getNextDirection(curNode, dir);
         }
