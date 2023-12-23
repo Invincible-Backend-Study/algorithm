@@ -32,6 +32,7 @@ class Main {
         map = new int[n][m];
         visited = new boolean[n][m];
 
+
         List<Node> airNodes = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
@@ -47,8 +48,8 @@ class Main {
         for (Node node : airNodes) {
             for (int i = 0; i < 4; i++) {
                 int nextR = rows[i] + node.r;
-                int nextC = cols[i] + node.c;                ;
-                moveForward(node, new Node(nextR, nextC), i);
+                int nextC = cols[i] + node.c;
+                moveForward(new Node(nextR, nextC), i);
             }
         }
 
@@ -65,18 +66,19 @@ class Main {
         bw.close();
     }
 
-    public static void moveForward(Node startNode, Node curNode, int dir) {
+    public static void moveForward(Node curNode, int dir) {
         // 올바른 좌표가 아니면 종료
         if (!isPossible(curNode.r, curNode.c)) {
             return;
         }
         visited[curNode.r][curNode.c] = true;
+        // 물건이 있을 경우에만 방향 스위치
         if (map[curNode.r][curNode.c] >= 1 && map[curNode.r][curNode.c] <= 4) {
             dir = getNextDirection(curNode, dir);
         }
         int nextR = curNode.r + rows[dir];
         int nextC = curNode.c + cols[dir];
-        moveForward(startNode, new Node(nextR, nextC), dir);
+        moveForward(new Node(nextR, nextC), dir);
     }
 
     public static int getNextDirection(Node node, int dir) {
@@ -128,6 +130,7 @@ class Main {
         if (r < 0 || r >= n || c < 0 || c >= m) {
             return false;
         }
+        // 에어컨이 이미 위치했는데 방문까지 했다면 더 할 필요가 없음
         if (map[r][c] == 9 && visited[r][c]) {
             return false;
         }
