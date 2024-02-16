@@ -14,22 +14,16 @@ class Solution {
             dp[k].add(iterNumber(N, k));
             
             for (int i = 1; i < k; i++) {
-                for (int j = 1; j < k; j++) {
-                    if (i + j != k) {
-                        continue;
-                    }
-                    for (int number1 : dp[i]) {
-                        for (int number2 : dp[j]) {
-                            
-                            dp[k].add(number1 + number2);
-                            if (number1 - number2 > 0) {
-                                dp[k].add(number1 - number2);
-                            }
-                            if (number1 / number2 != 0) {
-                                dp[k].add(number1 / number2);
-                            }
-                            dp[k].add(number1 * number2);
+                for (int number1 : dp[i]) {
+                    for (int number2 : dp[k - i]) {
+                        dp[k].add(number1 + number2);
+                        if (number1 - number2 > 0) {
+                            dp[k].add(number1 - number2);
                         }
+                        if (number1 / number2 != 0) {
+                            dp[k].add(number1 / number2);
+                        }
+                        dp[k].add(number1 * number2);
                     }
                 }
             }
@@ -39,7 +33,7 @@ class Solution {
             }
         }
         return answer;
-    }
+    z}
     
     public int iterNumber(int value, int count) {
         int number = 0;
