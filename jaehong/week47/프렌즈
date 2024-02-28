@@ -1,0 +1,87 @@
+import java.util.*;
+class Solution {
+
+    boolean[][] removeList;
+    char[][] map;
+
+    int[] dx = new int[]{0,1, 1};
+    int[] dy = new int[]{1,0, 1};
+    int m;
+    int n;
+    int answer;
+
+    public int solution(int m, int n, String[] board) {
+        this.answer = 0;
+        this.m = m; 
+        this.n = n;
+        this.map = new char[m][n];
+
+        for(int i = 0; i < board.length;i++){
+            map[i] = board[i].toCharArray();
+        }
+        
+        start();
+        return answer;
+    }
+    
+    void start(){
+        this.removeList = new boolean[m][n];
+        var flag = true;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                var cur = map[i][j];
+                if(cur == ' ') continue;
+                var cnt = 0;
+                for(int k = 0; k < 3; k++){
+                    var nextX = i + dx[k];
+                    var nextY = j + dy[k];
+                    
+
+                    if(nextX < 0 || nextX >= m) continue;
+                    if(nextY < 0 || nextY >= n) continue;
+                    if(map[nextX][nextY] != cur) break;
+                    cnt++;
+                }
+
+                if(cnt == 3){
+                    removeList[i][j] = true;
+                    flag = false;
+                    for(int k = 0; k < 3; k++){
+                        var nextX = i + dx[k];
+                        var nextY = j + dy[k];   
+
+                        removeList[nextX][nextY] = true;
+                    }
+                }
+            }
+        }
+        
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(removeList[i][j]) {
+                    if(map[i][j] != ' '){
+                        answer++;
+                    	map[i][j] = ' '; 
+                    }
+                }
+            }
+        }
+        
+        for(int i = 0; i < n; i++){
+            var start = 1; 
+            var writeId = m - 1;
+            for(int j = m - 1; j >= 0; j--){
+                if(map[j][i] != ' '){
+                    map[writeId--][i]= map[j][i];
+                }
+            }
+            while(writeId >= 0) map[writeId--][i] = ' ';
+        }
+
+        
+        if(flag) return; 
+        start();
+        
+
+    }
+}
