@@ -3,20 +3,6 @@ import java.util.*;
 
 class Main {
 
-    static class Friend implements Comparable<Friend> {
-        int cost, number;
-
-        public Friend(int cost, int number) {
-            this.cost = cost;
-            this.number = number;
-        }
-
-        @Override
-        public int compareTo(Friend f) {
-            return cost - f.cost;
-        }
-    }
-
     static int n, m, k;
     static int[] cost;
     static int[] parents;
