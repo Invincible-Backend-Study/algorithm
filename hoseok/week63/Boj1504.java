@@ -87,7 +87,6 @@ class Main {
                 }
             }
         }
-
         return dist;
     }
 }
