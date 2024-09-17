@@ -16,6 +16,7 @@ class Solution {
     }
 }
 
+
 // O(N) 풀이
 class Solution {
     public int jump(int[] nums) {
